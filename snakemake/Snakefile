@@ -1,0 +1,35 @@
+import os
+import snakemake.io
+import glob
+
+
+(SAMPLES,READS,) = glob_wildcards("../data/{sample}_{read}.fq")
+READS=["1","2"]
+PATH = "/home/ninon/Documents/workflows_comparison_analysis/snakemake/"
+REF= PATH+"../data/hg19.fasta"
+ANNOTATION = PATH+"../data/ref-transcripts.gtf"
+THREADS = 2
+CONTAINER = "docker://ninondm/workflow_comparison_analysis"
+
+print(SAMPLES)
+rule all:
+    input: 
+        expand(PATH+"results/{sample}_1_fastqc.zip",sample=SAMPLES),
+        expand(PATH+"results/{sample}_2_fastqc.zip",sample=SAMPLES), 
+        expand(PATH+"results/{sample}_transcripts.gtf",sample=SAMPLES),
+        #expand(PATH+"results/{sample}_other_sortmerna.fastq",sample=SAMPLES)
+
+include: "./rules/fastq.smk"  
+include: "./rules/fastp.smk"
+#include: "./rules/sortmerna.smk"
+include: "./rules/hisat2.smk"
+include: "./rules/samtools.smk"
+include: "./rules/cufflinks.smk"
+
+#expand("results/{sample}.sorted.bam",sample=SAMPLES),
+#expand("results/{sample}.sam",sample=SAMPLES)
+#expand("results/{sample}.{number}.ht2",sample=SAMPLES)
+#expand("results/{sample}_other_sortmerna.fastq",sample=SAMPLES)
+#expand("results/{sample}_aligned_sortmerna.fastq",sample=SAMPLES)
+#expand("results/{sample}_1_trimmed.fastq.gz",sample=SAMPLES),
+#expand("results/{sample}_2_trimmed.fastq.gz",sample=SAMPLES)
