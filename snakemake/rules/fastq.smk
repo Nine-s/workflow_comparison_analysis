@@ -15,6 +15,8 @@ rule fastqc:
     # better to pass in the threads than to hardcode them in the shell command
     threads: THREADS#workflow.cores * 0.75 
     container: CONTAINER
+    benchmark:
+        PATH+"../sm_benchmarks/{sample}_fastqc_benchmark.txt"
     shell:
         """
         fastqc {input.r1} {input.r2} -o results --thread {threads}

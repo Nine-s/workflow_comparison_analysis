@@ -7,6 +7,8 @@ rule hisat2_index_reference:
         #"results/{sample}.{number}.ht2"
     #[WORKING_DIR + "genome/genome." + str(i) + ".ht2" for i in range(1,9)]
     threads: THREADS
+    benchmark:
+        PATH+"../sm_benchmarks/_hisat2_index_reference_benchmark.txt"
     shell:
         """
         hisat2-build {input.ref} results/indexed_genome -p {threads}
@@ -22,6 +24,8 @@ rule hisat2_align:
         #ref = PATH+"results/{sample}*.ht2"
     output:
         PATH+"results/{sample}.sam"
+    benchmark:
+        PATH+"../sm_benchmarks/{sample}_hisat2_align_benchmark.txt"
     log:
         "{sample}_summary.log"
     threads: THREADS

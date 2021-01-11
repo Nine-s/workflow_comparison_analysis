@@ -11,6 +11,8 @@ rule fastp:
         PATH+"results/{sample}_fastp_log.json"
     threads: THREADS
     container: CONTAINER
+    benchmark:
+        PATH+"../sm_benchmarks/{sample}_fastp_benchmark.txt"
     shell:
         """
         fastp -i {input.r1} -I {input.r2} -o results/{wildcards.sample}_1_trimmed.fastq -O results/{wildcards.sample}_2_trimmed.fastq --json results/{wildcards.sample}_fastp_log.json --thread {threads}
