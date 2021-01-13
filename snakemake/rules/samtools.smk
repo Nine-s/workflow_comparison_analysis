@@ -1,14 +1,18 @@
 rule samtools:
     input:
-        PATH+"results/{sample}.sam"
+        s1 = "results/{sample}.sam"
+
     output:
-        PATH+"results/{sample}.sorted.bam"
-    #"${sample_name}.bai")
-    threads: THREADS
+        f1 = "results/{sample}.sorted.bam"
+    
+    threads: 
+        config["THREADS"] 
+    
     benchmark:
-        PATH+"../sm_benchmarks/{sample}_samtools_benchmark.txt"
+        "../sm_benchmarks/{sample}_samtools_benchmark.txt"
+    
     shell:
         """
-        samtools view -bS results/{wildcards.sample}.sam -@ {threads} | samtools sort -o results/{wildcards.sample}.sorted.bam -T tmp -@ {threads}
+        samtools view -bS {input.s1} -@ {threads} | samtools sort -o {output.f1} -T tmp -@ {threads}
         """
-        #samtools index ${sample_name}.sorted.bam -b ${sample_name}.bai
+        

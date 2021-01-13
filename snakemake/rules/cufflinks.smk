@@ -1,12 +1,17 @@
 rule cufflinks:
     input:
-        sorted_bam = PATH+"results/{sample}.sorted.bam",
-        annotation = ANNOTATION
+        sorted_bam = "results/{sample}.sorted.bam",
+        annotation = config["ANNOTATION"]
+    
     output:
-        PATH+"results/{sample}/transcripts.gtf"
-    threads: THREADS
+        "results/{sample}/transcripts.gtf"
+    
+    threads:
+        config["THREADS"] 
+    
     benchmark:
-        PATH+"../sm_benchmarks/{sample}_cufflinks_benchmark.txt"
+        "../sm_benchmarks/{sample}_cufflinks_benchmark.txt"
+    
     shell:
         """
         cufflinks -G {input.annotation} {input.sorted_bam} -o "results/{wildcards.sample}/" --num-threads {threads}

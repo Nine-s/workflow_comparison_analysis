@@ -2,12 +2,16 @@ rule sortmerna:
     input:
         r1 = PATH+"results/{sample}_1_trimmed.fastq",
         r2 = PATH+"results/{sample}_2_trimmed.fastq"
+    
     output:
-        #PATH+"results/{sample}_aligned_sortmerna.fastq"
-        PATH+"results/{sample}_other_sortmerna.fastq"
+        f1 = PATH+"results/{sample}_other_sortmerna.fastq"
+        f2 = PATH+"results/{sample}_aligned_sortmerna.fastq"
+    
     log:
         "{sample}_aligned_sortmerna.log"
+    
     threads: THREADS
+    
     shell:
         """
         sortmerna \
