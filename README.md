@@ -48,6 +48,7 @@ Run NextFlow:
 cd nextflow
 
 nextflow run main.nf \
+-c nextflow.config \
 -with-docker workflow_comparison_test:latest 
 ```
 
@@ -57,6 +58,7 @@ Run NextFlow with tracing:
 cd nextflow
 
 nextflow run main.nf \
+-c nextflow.config \
 -with-docker workflow_comparison_test:latest \
 -with-report ../nextflow_report \
 -with-trace ../nextflow_trace \
