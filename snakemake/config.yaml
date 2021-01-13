@@ -1,0 +1,5 @@
+PATH : "/home/ninon/Documents/workflows_comparison_analysis/snakemake/"
+REF : "../data/hg19.fasta"
+ANNOTATION : "../data/ref-transcripts.gtf"
+THREADS : 4
+CONTAINER : "docker://ninondm/workflow_comparison_analysis"
