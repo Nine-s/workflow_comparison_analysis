@@ -1,7 +1,5 @@
-//source https://github.com/nextflow-io/rnaseq-nf/blob/master/modules/fastqc.nf
-params.outdir = 'results'
-
 process FASTQC {
+    label 'fastqc'
     tag "fastqc $sample_id"
     publishDir params.outdir
 

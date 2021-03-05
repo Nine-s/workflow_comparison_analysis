@@ -1,6 +1,7 @@
 process HISAT2_INDEX_REFERENCE {
+    label 'hisat2'
     publishDir params.outdir
-    tag 'hisat2_index_reference'
+    
     input:
     path(reference)
 
@@ -12,11 +13,10 @@ process HISAT2_INDEX_REFERENCE {
     hisat2-build ${reference} ${reference.baseName} -p ${params.threads} 
     """
 }
-// -p number of threads
 
 process HISAT2_ALIGN {
+    label 'hisat2'
     publishDir params.outdir
-    tag 'hisat2_align'
     
     input:
     tuple val(sample_name), path(reads)

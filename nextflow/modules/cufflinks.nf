@@ -1,4 +1,5 @@
 process CUFFLINKS {
+    label 'cufflinks'
     publishDir params.outdir
     //publishDir "${params.output}/${params.hisat2_dir}", mode: 'copy', pattern: "*.bai" 
     //publishDir "results/cufflinks_out" 

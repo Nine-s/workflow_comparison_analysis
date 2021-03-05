@@ -1,6 +1,5 @@
-//source https://github.com/hoelzer-lab/rnaflow/blob/master/modules/fastp.nf
 process FASTP {
-    tag 'fastp'
+    label 'fastp'
     publishDir params.outdir
 
     input:
