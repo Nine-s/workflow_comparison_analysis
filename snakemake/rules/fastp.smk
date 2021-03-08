@@ -15,7 +15,7 @@ rule fastp:
         config["THREADS"] 
     
     container:
-        config["CONTAINER"]
+        config["CONTAINER_FASTP"]
     
     benchmark:
         "../sm_benchmarks/{sample}_fastp_benchmark.txt"

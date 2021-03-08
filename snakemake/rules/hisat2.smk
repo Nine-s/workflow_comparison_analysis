@@ -7,6 +7,9 @@ rule hisat2_index_reference:
     
     threads: 
         config["THREADS"] 
+    
+    container:
+        config["CONTAINER_HISAT2"]
 
     benchmark:
         "../sm_benchmarks/_hisat2_index_reference_benchmark.txt"
@@ -32,6 +35,9 @@ rule hisat2_align:
     log:
         l1 = "results/{sample}_summary.log"
     
+    container:
+        config["CONTAINER_HISAT2"]
+
     threads:
         config["THREADS"] 
     

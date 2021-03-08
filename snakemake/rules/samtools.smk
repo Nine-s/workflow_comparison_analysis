@@ -8,6 +8,9 @@ rule samtools:
     threads: 
         config["THREADS"] 
     
+    container:
+        config["CONTAINER_SAMTOOLS"]
+
     benchmark:
         "../sm_benchmarks/{sample}_samtools_benchmark.txt"
     

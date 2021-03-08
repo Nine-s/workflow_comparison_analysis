@@ -14,7 +14,7 @@ rule fastqc:
         #workflow.cores * 0.75 
 
     container: 
-        config["CONTAINER"]
+        config["CONTAINER_FASTQC"]
 
     benchmark:
         "../sm_benchmarks/{sample}_fastqc_benchmark.txt"

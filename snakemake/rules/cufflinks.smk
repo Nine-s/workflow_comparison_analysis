@@ -12,6 +12,9 @@ rule cufflinks:
     benchmark:
         "../sm_benchmarks/{sample}_cufflinks_benchmark.txt"
     
+    container:
+        config["CONTAINER_CUFFLINKS"]
+
     shell:
         """
         cufflinks -G {input.annotation} {input.sorted_bam} -o "results/{wildcards.sample}/" --num-threads {threads}
