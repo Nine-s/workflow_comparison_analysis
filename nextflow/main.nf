@@ -23,9 +23,11 @@ params.outdir = 'results'
 
 
 workflow {
+    
     read_pairs_ch = channel.fromFilePairs( params.reads, checkIfExists: true ) 
     read_reference_ch = channel.fromPath( params.genome, checkIfExists: true ) 
     annotation_ch =  channel.fromPath( params.annot, checkIfExists: true ) 
+
     FASTQC( read_pairs_ch )
     FASTP( read_pairs_ch )
     HISAT2_INDEX_REFERENCE( read_reference_ch )
