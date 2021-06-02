@@ -25,14 +25,12 @@ params.outdir = 'results'
 workflow {
     
     read_pairs_ch = channel.fromFilePairs( params.reads, checkIfExists: true ) 
-    read_reference_ch = channel.fromPath( params.genome, checkIfExists: true ) 
-    annotation_ch =  channel.fromPath( params.annot, checkIfExists: true ) 
-
+    
     FASTQC( read_pairs_ch )
     FASTP( read_pairs_ch )
-    HISAT2_INDEX_REFERENCE( read_reference_ch )
+    HISAT2_INDEX_REFERENCE( params.genome )
     HISAT2_ALIGN(FASTP.out.sample_trimmed, HISAT2_INDEX_REFERENCE.out)
     SAMTOOLS(HISAT2_ALIGN.out.sample_sam)
-    CUFFLINKS(SAMTOOLS.out.sample_bam, annotation_ch)
+    CUFFLINKS(SAMTOOLS.out.sample_bam, params.annot)
 }
 
