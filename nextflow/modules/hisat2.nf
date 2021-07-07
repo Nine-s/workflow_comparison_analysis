@@ -28,6 +28,7 @@ process HISAT2_ALIGN {
 
     script:
     """
-    hisat2 -x ${reference.baseName} -1 ${reads[0]} -2 ${reads[0]} --new-summary --summary-file ${sample_name}_summary.log -S ${sample_name}.sam --thread ${params.threads} 
+    hisat2 -x ${reference.baseName} -1 ${reads[0]} -2 ${reads[1]} --new-summary --summary-file ${sample_name}_summary.log -S ${sample_name}.sam --thread ${params.threads} 
+    sort ${sample_name}.sam > ${sample_name}.sam
     """
 }
