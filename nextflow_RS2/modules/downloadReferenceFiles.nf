@@ -30,7 +30,6 @@ process DOWNLOAD_REFERENCE_ANNOTATION {
     """
 
 }
-
 process DOWNLOAD_READS_SMALL {
     output:
     tuple val("SRR3287149"), file("SRR3287149_1.fastq"), file("SRR3287149_2.fastq"), emit: paired_end
@@ -50,8 +49,8 @@ process DOWNLOAD_READS_MEDIUM {
 
     script:
     """
-    wget ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR328/009/SRR6822761/SRR6822761_1.fastq.gz
-    wget ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR328/009/SRR6822761/SRR6822761_2.fastq.gz
+    wget ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR682/001/SRR6822761/SRR6822761_1.fastq.gz
+    wget ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR682/001/SRR6822761/SRR6822761_2.fastq.gz
     gunzip SRR6822761_1.fastq.gz
     gunzip SRR6822761_2.fastq.gz
     """
@@ -59,13 +58,13 @@ process DOWNLOAD_READS_MEDIUM {
 
 process DOWNLOAD_READS_LARGE {
     output:
-    tuple val("SRS8005141"), file("SRS8005141_1.fastq"), file("SRS8005141_2.fastq"), emit: paired_end
+    tuple val("SRR13403753"), file("SRR13403753_1.fastq"), file("SRR13403753_2.fastq"), emit: paired_end
 
     script:
     """
-    wget ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR328/009/SRS8005141/SRS8005141_1.fastq.gz
-    wget ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR328/009/SRS8005141/SRS8005141_2.fastq.gz
-    gunzip SRS8005141_1.fastq.gz
-    gunzip SRS8005141_2.fastq.gz
+    wget ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR134/053/SRR13403753/SRR13403753_1.fastq.gz
+    wget ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR134/053/SRR13403753/SRR13403753_2.fastq.gz
+    gunzip SRR13403753_1.fastq.gz
+    gunzip SRR13403753_2.fastq.gz
     """
 }
