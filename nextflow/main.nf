@@ -3,7 +3,7 @@ nextflow.enable.dsl = 2
 
 include { FASTQC } from './modules/fastqc.nf'
 include { FASTP } from './modules/fastp'
-include { SORTMERNA } from './modules/sortmerna'
+include { DOWNLOAD_REFERENCE_GENOME ; DOWNLOAD_REFERENCE_ANNOTATION ; DOWNLOAD_READS_SMALL ; DOWNLOAD_READS_MEDIUM ; DOWNLOAD_READS_LARGE } from './modules/downloadReferenceFiles.nf'
 include { HISAT2_INDEX_REFERENCE ; HISAT2_ALIGN } from './modules/hisat2.nf'
 include { SAMTOOLS } from './modules/samtools'
 include { CUFFLINKS } from './modules/cufflinks'
@@ -11,9 +11,6 @@ include { CUFFLINKS } from './modules/cufflinks'
 log.info """\
          RNAseq differential analysis using NextFlow 
          =============================
-         genome: ${params.genome}
-         annot : ${params.annot}
-         reads : ${params.reads}
          outdir: ${params.outdir}
          basedir : ${params.basedir}
          """
@@ -24,13 +21,15 @@ params.outdir = 'results'
 
 workflow {
     
-    read_pairs_ch = channel.fromFilePairs( params.reads, checkIfExists: true ) 
-    
+    //read_pairs_ch = channel.fromFilePairs( params.reads, checkIfExists: true ) 
+    DOWNLOAD_READS_SMALL().view().set{read_pairs_ch}
+    DOWNLOAD_REFERENCE_ANNOTATION()
+    DOWNLOAD_REFERENCE_GENOME()
     FASTQC( read_pairs_ch )
     FASTP( read_pairs_ch )
-    HISAT2_INDEX_REFERENCE( params.genome )
+    HISAT2_INDEX_REFERENCE( DOWNLOAD_REFERENCE_GENOME.out.reference_genome )
     HISAT2_ALIGN(FASTP.out.sample_trimmed, HISAT2_INDEX_REFERENCE.out)
     SAMTOOLS(HISAT2_ALIGN.out.sample_sam)
-    CUFFLINKS(SAMTOOLS.out.sample_bam, params.annot)
+    CUFFLINKS(SAMTOOLS.out.sample_bam, DOWNLOAD_REFERENCE_ANNOTATION.out.reference_annotation)
 }
 

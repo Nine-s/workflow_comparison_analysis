@@ -10,8 +10,9 @@ process HISAT2_INDEX_REFERENCE {
 
     script:
     """
-    hisat2-build ${reference} ${reference.baseName} -p ${params.threads} 
+    hisat2-build ${reference} ${reference.baseName}
     """
+    // -p ${params.threads} 
 }
 
 process HISAT2_ALIGN {
@@ -28,7 +29,7 @@ process HISAT2_ALIGN {
 
     script:
     """
-    hisat2 -x ${reference.baseName} -1 ${reads_1} -2 ${reads_2} --new-summary --summary-file ${reads_1.getBaseName()}_summary.log -S ${reads_1.getBaseName()}.sam --thread ${params.threads} 
-    sort ${sample_name}.sam > ${sample_name}.sam
+    hisat2 -x ${reference.baseName} -1 ${reads_1} -2 ${reads_2} --new-summary --summary-file ${reads_1.getBaseName()}_summary.log -S ${reads_1.getBaseName()}.sam
     """
+    //sort ${sample_name}.sam > ${sample_name}.sam
 }

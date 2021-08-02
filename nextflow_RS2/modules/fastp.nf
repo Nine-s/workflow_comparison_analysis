@@ -11,6 +11,6 @@ process FASTP {
 
     script:
     """
-    fastp -i ${reads_1} -I ${reads_2} -o ${reads_1.getBaseName()}.R1.trimmed.fastq -O ${reads_1.getBaseName()}.R2.trimmed.fastq --thread ${task.cpus} --json ${name}_fastp.json --thread ${params.threads}
+    fastp -i ${reads_1} -I ${reads_2} -o ${reads_1.getBaseName()}.R1.trimmed.fastq -O ${reads_1.getBaseName()}.R2.trimmed.fastq --thread ${task.cpus} --json ${name}_fastp.json 
     """
 }

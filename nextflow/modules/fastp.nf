@@ -3,7 +3,7 @@ process FASTP {
     publishDir params.outdir
 
     input:
-    tuple val(name), path(reads)
+    tuple val(name), path(reads_1), path(reads_2)
 
     output:
     tuple val(name), path("${name}*.trimmed.fastq"), emit: sample_trimmed
@@ -11,6 +11,6 @@ process FASTP {
 
     script:
     """
-    fastp -i ${reads[0]} -I ${reads[1]} -o ${name}.R1.trimmed.fastq -O ${name}.R2.trimmed.fastq --thread ${task.cpus} --json ${name}_fastp.json --thread ${params.threads}
+    fastp -i ${reads_1} -I ${reads_2} -o ${name}.R1.trimmed.fastq -O ${name}.R2.trimmed.fastq --thread ${task.cpus} --json ${name}_fastp.json --thread ${params.threads}
     """
 }

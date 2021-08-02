@@ -11,6 +11,7 @@ process CUFFLINKS {
     
     script:
     """
-    cufflinks -G ${annotation} ${sorted_bam}  --num-threads ${params.threads}
+    cufflinks -G ${annotation} ${sorted_bam}  
     """
+    //--num-threads ${params.threads}
 }
